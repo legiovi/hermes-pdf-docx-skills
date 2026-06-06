@@ -1,28 +1,44 @@
-# Hermes PDF + DOCX Skills
+# Hermes PDF + DOCX + Voice + Telegram Skills
 
-Professional document processing skills for your Hermes Agent.
+Complete skill pack for your Hermes Agent.
 
-## Why these skills?
+## Available Skills
 
-These skills give your Hermes Agent powerful autonomous capabilities for:
-- Reading contracts, invoices, financial reports
-- Extracting tables for trading/analysis
-- Converting PDFs to images for vision analysis
-- Creating professional PDF reports and Word documents
-- OCR for scanned documents
-- Filling templates and forms
+### 1. Document Skills
+- `pdf_skill.py` — Extract text/tables, OCR, create reports, merge/split PDFs
+- `docx_skill.py` — Create professional Word documents, read templates, convert to PDF
 
-Perfect for business automation, hotel operations, contracts in Qatar, and personal use.
+### 2. Telegram Delivery
+- `telegram_delivery_skill.py` — Send generated files directly back to you in Telegram
 
-## New: Telegram File Delivery
+### 3. Voice Skill (NEW)
+- `voice_skill.py` — High-quality Speech-to-Text + Text-to-Speech
 
-Added `telegram_delivery_skill.py` so Hermes can **automatically send** generated documents back to you in Telegram.
+## Voice Capabilities
 
-This solves the problem of Hermes creating files but not being able to share them.
+**Recommended stack:**
+- **STT (listening)**: faster-whisper (large-v3-turbo)
+- **TTS (speaking)**: Piper TTS (fast + good Spanish voices) or XTTS-v2 (higher quality + voice cloning)
 
-## Installation for Hermes Agent
+### Quick Start for Voice
 
-### Recommended: One-command install
+```bash
+pip install faster-whisper piper-tts
+```
+
+For better quality + voice cloning:
+```bash
+pip install faster-whisper TTS
+```
+
+**Good Spanish voices for Piper:**
+- `es_ES-davefx-medium` (recommended)
+- `es_ES-carlfm-x_low`
+- `es_MX-ald-medium`
+
+Download voices: https://rhasspy.github.io/piper-samples/
+
+## Full Installation (Recommended)
 
 ```bash
 git clone https://github.com/legiovi/hermes-pdf-docx-skills.git
@@ -30,62 +46,19 @@ cd hermes-pdf-docx-skills
 pip install -r requirements.txt
 ```
 
-Then copy the skill files into your Hermes `skills/` folder and register them.
+Then copy the `.py` files into your Hermes `skills/` folder and register them.
 
-### Or let Hermes install it autonomously
-
-Share this link with your Hermes Agent:
+## Main Link to Share with Hermes
 
 ```
 https://github.com/legiovi/hermes-pdf-docx-skills
 ```
 
-## Available Skills
-
-### pdf_skill.py
-
-Core functions:
-- `extract_text(pdf_path, layout=True)` → Clean text extraction
-- `extract_tables(pdf_path)` → Tables as list of dicts / DataFrames
-- `pdf_to_images(pdf_path, output_dir)` → Render pages as images for vision
-- `ocr_pdf(pdf_path)` → OCR for scanned documents
-- `merge_pdfs(input_pdfs, output_path)`
-- `create_pdf_report(title, content, output_path)` → Generate professional reports
-
-### docx_skill.py
-
-Core functions:
-- `create_professional_docx(title, sections, output_path)` → High-quality Word documents
-- `read_docx_to_markdown(docx_path)` → Best quality reading
-- `fill_docx_template(template_path, replacements, output_path)`
-- `docx_to_pdf(docx_path, output_pdf)`
-
-### telegram_delivery_skill.py (NEW)
-
-Core function:
-- `send_document_sync(file_path, chat_id, bot_token, caption)` → Send any file directly to you via Telegram
-
-## Integration with Hermes
-
-Register the functions as tools in your Hermes tool registry so the agent can call them autonomously.
-
-After generating a report, Hermes should automatically call the Telegram delivery skill to send it to you.
-
-## Requirements
-
-See `requirements.txt`. Some features (OCR, PDF rendering) require system packages like `poppler-utils` and `tesseract-ocr`.
-
-For Telegram delivery you need:
-- `python-telegram-bot` package
-- Your bot token configured in Hermes (recommended as environment variable)
-- The user's chat_id
+Hermes can autonomously clone the repo and install the skills.
 
 ## Next Steps
-
-Want more advanced features? Tell me and I can add:
-- PDF form filling
-- Advanced template editing
-- Arabic/Spanish language support
-- Invoice generation
-- Contract analysis workflows
-- Automatic research + report + send pipeline
+Want me to improve anything? Examples:
+- Better real-time voice conversation flow
+- Voice cloning setup
+- Integration with Telegram voice messages
+- Add Kokoro TTS as option
