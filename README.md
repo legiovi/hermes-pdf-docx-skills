@@ -14,6 +14,12 @@ These skills give your Hermes Agent powerful autonomous capabilities for:
 
 Perfect for business automation, hotel operations, contracts in Qatar, and personal use.
 
+## New: Telegram File Delivery
+
+Added `telegram_delivery_skill.py` so Hermes can **automatically send** generated documents back to you in Telegram.
+
+This solves the problem of Hermes creating files but not being able to share them.
+
 ## Installation for Hermes Agent
 
 ### Recommended: One-command install
@@ -24,7 +30,7 @@ cd hermes-pdf-docx-skills
 pip install -r requirements.txt
 ```
 
-Then copy `pdf_skill.py` and `docx_skill.py` into your Hermes `skills/` folder and register them.
+Then copy the skill files into your Hermes `skills/` folder and register them.
 
 ### Or let Hermes install it autonomously
 
@@ -33,11 +39,6 @@ Share this link with your Hermes Agent:
 ```
 https://github.com/legiovi/hermes-pdf-docx-skills
 ```
-
-Hermes can:
-1. `git clone` the repo
-2. Run the installation commands
-3. Load the skills into its tool registry
 
 ## Available Skills
 
@@ -59,29 +60,25 @@ Core functions:
 - `fill_docx_template(template_path, replacements, output_path)`
 - `docx_to_pdf(docx_path, output_pdf)`
 
+### telegram_delivery_skill.py (NEW)
+
+Core function:
+- `send_document_sync(file_path, chat_id, bot_token, caption)` → Send any file directly to you via Telegram
+
 ## Integration with Hermes
 
 Register the functions as tools in your Hermes tool registry so the agent can call them autonomously.
 
-Example tool schema (simplified):
-
-```json
-{
-  "name": "extract_text",
-  "description": "Extract clean text from a PDF file",
-  "parameters": {
-    "type": "object",
-    "properties": {
-      "pdf_path": {"type": "string"},
-      "layout": {"type": "boolean", "default": true}
-    }
-  }
-}
-```
+After generating a report, Hermes should automatically call the Telegram delivery skill to send it to you.
 
 ## Requirements
 
 See `requirements.txt`. Some features (OCR, PDF rendering) require system packages like `poppler-utils` and `tesseract-ocr`.
+
+For Telegram delivery you need:
+- `python-telegram-bot` package
+- Your bot token configured in Hermes (recommended as environment variable)
+- The user's chat_id
 
 ## Next Steps
 
@@ -91,3 +88,4 @@ Want more advanced features? Tell me and I can add:
 - Arabic/Spanish language support
 - Invoice generation
 - Contract analysis workflows
+- Automatic research + report + send pipeline
